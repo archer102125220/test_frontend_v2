@@ -27,15 +27,15 @@
   "packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228",
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
-    "@unocss/nuxt": "^65.5.0",
-    "@unocss/postcss": "^65.5.0",
+    "@unocss/nuxt": "^66.5.10",
+    "@unocss/postcss": "^66.5.10",
     "postcss": "^8.5.6",
     "postcss-nested": "^7.0.2",
     "postcss-preset-env": "^10.2.4",
     "postcss-pxtorem": "^6.1.0",
     "prettier": "^3.6.2",
     "sass": "^1.90.0",
-    "unocss": "^65.5.0",
+    "unocss": "^66.5.10",
     "vue-tsc": "^3.0.5"
   }
 }
