@@ -22,3 +22,7 @@ logs
 .env
 .env.*
 !.env.example
+
+# OpenAPI Generator - 生成的 API 代碼
+types/api/
+generated/
