@@ -1,5 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
-
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
@@ -20,7 +18,7 @@ export default defineNuxtConfig({
       default: {
         modifiers: {
           format: 'webp',
-          quality: 75, // 設定品質
+          quality: 75,
         },
       },
     },
@@ -69,7 +67,6 @@ export default defineNuxtConfig({
       },
       'postcss-nested': {},
       'postcss-pxtorem': {
-        // 更正插件名稱
         rootValue: 16,
         propList: ['*'],
         exclude: /node_modules/i,
@@ -85,6 +82,7 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         scss: {
           api: 'modern',
+          additionalData: '@use "@/assets/css/mixin.scss" as *;',
         },
       },
     },

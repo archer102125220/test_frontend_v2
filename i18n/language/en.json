@@ -1,4 +1,42 @@
 {
-  "welcome": "Welcome",
-  "test": "Test"
+    "title": "User Management System",
+    "subtitle": "Manage your user data",
+    "form": {
+        "addUser": "Add User",
+        "editUser": "Edit User",
+        "name": "Name",
+        "namePlaceholder": "Enter name",
+        "age": "Age",
+        "agePlaceholder": "Enter age",
+        "submit": "Submit",
+        "update": "Update",
+        "cancel": "Cancel"
+    },
+    "list": {
+        "title": "User List",
+        "loading": "Loading...",
+        "error": "Error",
+        "empty": "No users found",
+        "actions": "Actions",
+        "edit": "Edit",
+        "delete": "Delete"
+    },
+    "dialog": {
+        "createTitle": "Confirm Create",
+        "createMessage": "Are you sure you want to create this user?",
+        "updateTitle": "Confirm Update",
+        "updateMessage": "Are you sure you want to update this user?",
+        "deleteTitle": "Confirm Delete",
+        "deleteMessage": "Are you sure you want to delete user '{name}'? This action cannot be undone.",
+        "confirm": "Confirm",
+        "cancel": "Cancel"
+    },
+    "validation": {
+        "nameRequired": "Please enter a name",
+        "ageInvalid": "Please enter a valid age"
+    },
+    "error": {
+        "operationFailed": "Operation failed, please try again later",
+        "deleteFailed": "Delete failed, please try again later"
+    }
 }
