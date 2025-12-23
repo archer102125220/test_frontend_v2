@@ -2,29 +2,29 @@ import type { User } from '@/types/user'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    users: useState<User[]>('user_store_users', (): User[] => []).value,
+    userList: useState<User[]>('user_store_user_list', (): User[] => []).value,
     loading: false,
     error: useState<string | null>('user_store_error', () => null).value,
   }),
 
   actions: {
-    setUsers(users: User[]) {
-      this.users = users
+    setUsers(userList: User[]) {
+      this.userList = userList
     },
 
     addUser(user: User) {
-      this.users.push(user)
+      this.userList.push(user)
     },
 
     updateUser(updatedUser: User) {
-      const index = this.users.findIndex((u) => u.id === updatedUser.id)
+      const index = this.userList.findIndex((user) => user.id === updatedUser.id)
       if (index !== -1) {
-        this.users[index] = updatedUser
+        this.userList[index] = updatedUser
       }
     },
 
     removeUser(userId: number) {
-      this.users = this.users.filter((u) => u.id !== userId)
+      this.userList = this.userList.filter((user) => user.id !== userId)
     },
 
     setLoading(loading: boolean) {
@@ -38,14 +38,14 @@ export const useUserStore = defineStore('user', {
 
   getters: {
     getUserById: (state) => (id: number) => {
-      return state.users.find((u) => u.id === id)
+      return state.userList.find((u) => u.id === id)
     },
 
-    totalUsers: (state) => state.users.length,
+    totalUsers: (state) => state.userList.length,
   },
 
   hydrate(state) {
-    state.users = useState<User[]>('user_store_users', (): User[] => []).value
+    state.userList = useState<User[]>('user_store_user_list', (): User[] => []).value
     state.error = useState<string | null>('user_store_error', () => null).value
   },
 })

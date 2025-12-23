@@ -45,7 +45,7 @@
       <div v-else-if="userStore.error" class="index_page-list_section-error">
         {{ t('list.error') }}: {{ userStore.error }}
       </div>
-      <div v-else-if="userStore.users.length === 0" class="index_page-list_section-empty">
+      <div v-else-if="userStore.userList.length === 0" class="index_page-list_section-empty">
         {{ t('list.empty') }}
       </div>
       <table v-else class="index_page-list_section-table">
@@ -59,13 +59,13 @@
         </thead>
         <tbody class="index_page-list_section-table-body">
           <tr
-            v-for="user in userStore.users"
+            v-for="user in userStore.userList"
             :key="user.id"
             class="index_page-list_section-table-row"
           >
             <td class="index_page-list_section-table-cell">{{ user.id }}</td>
-            <td class="index_page-list_section-table-cell">{{ user.name }}</td>
-            <td class="index_page-list_section-table-cell">{{ user.age }}</td>
+            <td class="index_page-list_section-table-cell">{{ user.name || 'N/A' }}</td>
+            <td class="index_page-list_section-table-cell">{{ user.age || 'N/A' }}</td>
             <td class="index_page-list_section-table-cell">
               <div class="index_page-list_section-table-actions">
                 <EBtn :text="t('list.edit')" color="warn" @click="startEdit(user)" />
