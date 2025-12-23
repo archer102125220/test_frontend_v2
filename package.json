@@ -3,12 +3,12 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "npm run generate:api && nuxt build",
+        "build": "nuxt build",
         "dev": "nuxt dev",
         "generate:api": "tsx scripts/generate-api.ts",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
-        "postinstall": "nuxt prepare",
+        "postinstall": "npm run generate:api && nuxt prepare",
         "format": "prettier --write .",
         "format:check": "prettier --check ."
     },

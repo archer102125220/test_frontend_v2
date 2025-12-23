@@ -24,18 +24,29 @@ function log(message: string, color: keyof typeof colors = 'reset') {
 function main() {
   log('🔍 檢查環境變數...', 'blue')
 
-  const envPath = resolve(process.cwd(), '.env')
-  if (!existsSync(envPath)) {
-    log('❌ 錯誤：找不到 .env 檔案', 'red')
-    log('請先複製 .env.example 並設置環境變數：', 'yellow')
-    log('  cp .env.example .env', 'yellow')
-    process.exit(1)
+  // 檢查是否在 CI/CD 環境（Vercel 會設定這些環境變數）
+  const isCI = process.env.CI === 'true' || process.env.VERCEL === '1'
+
+  if (!isCI) {
+    const envPath = resolve(process.cwd(), '.env')
+    if (!existsSync(envPath)) {
+      log('❌ 錯誤：找不到 .env 檔案', 'red')
+      log('請先複製 .env.example 並設置環境變數：', 'yellow')
+      log('  cp .env.example .env', 'yellow')
+      process.exit(1)
+    }
+  } else {
+    log('ℹ️  偵測到 CI/CD 環境，跳過 .env 檔案檢查', 'blue')
   }
 
   if (!OPENAPI_SPEC_URL) {
     log('❌ 錯誤：未設置 OPENAPI_SPEC_URL 環境變數', 'red')
-    log('請在 .env 檔案中設置：', 'yellow')
-    log('  OPENAPI_SPEC_URL=https://your-api-url/swagger/doc.json', 'yellow')
+    if (isCI) {
+      log('請在 Vercel 專案設定中添加環境變數：OPENAPI_SPEC_URL', 'yellow')
+    } else {
+      log('請在 .env 檔案中設置：', 'yellow')
+      log('  OPENAPI_SPEC_URL=https://your-api-url/swagger/doc.json', 'yellow')
+    }
     process.exit(1)
   }
 
