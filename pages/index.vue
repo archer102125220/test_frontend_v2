@@ -90,6 +90,7 @@
 
 <script setup lang="ts">
 import type { User } from '@/types/user'
+import { createUser, updateUser, deleteUser } from '@/services/user'
 
 const { t } = useI18n()
 const userStore = useUserStore()
@@ -174,9 +175,9 @@ async function handleSubmit() {
 }
 
 function startEdit(user: User) {
-  if (!user.id) return
-  newUserName.value = user.name
-  newUserAge.value = user.age.toString()
+  if (typeof user.id !== 'number') return
+  newUserName.value = user.name || ''
+  newUserAge.value = user.age?.toString() || ''
   isEditing.value = true
   editingUserId.value = user.id
 
