@@ -62,7 +62,7 @@
             class="index_page-list_section-table-row"
           >
             <td class="index_page-list_section-table-cell">{{ user.id }}</td>
-            <td class="index_page-list_section-table-cell">{{ user.name || user }}</td>
+            <td class="index_page-list_section-table-cell">{{ user.name }}</td>
             <td class="index_page-list_section-table-cell">{{ user.age }}</td>
             <td class="index_page-list_section-table-cell">
               <div class="index_page-list_section-table-actions">
