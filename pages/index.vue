@@ -25,7 +25,7 @@
           :placeholder="t('form.agePlaceholder')"
         />
         <div class="index_page-form_section-form-actions">
-          <EBtn v-if="isEditing" color="warn" :text="t('form.cancel')" @click="cancelEdit" />
+          <EBtn v-if="isEditing" color="warn" :text="t('form.cancel')" @click="resetForm" />
           <EBtn
             color="success"
             type="submit"
@@ -118,11 +118,8 @@ const { data: usersData } = await useGetUsers()
 if (usersData.value) {
   userStore.setUsers(usersData.value)
 }
-console.log(userStore.users)
 
 function validateForm(): boolean {
-  console.log(newUserName.value)
-  console.log(newUserAge.value)
   if (newUserName.value.trim() === '') {
     alert(t('validation.nameRequired'))
     return false
@@ -187,10 +184,6 @@ function startEdit(user: User) {
   editingUserId.value = user.id
 
   window.scrollTo({ top: 0, behavior: 'smooth' })
-}
-
-function cancelEdit() {
-  resetForm()
 }
 
 function confirmDelete(user: User) {
