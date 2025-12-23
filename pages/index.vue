@@ -16,6 +16,7 @@
           v-model="newUserName"
           :label="t('form.name')"
           :placeholder="t('form.namePlaceholder')"
+          :error="nameError"
         />
         <ETextField
           id="user-age"
@@ -23,6 +24,7 @@
           v-model="newUserAge"
           :label="t('form.age')"
           :placeholder="t('form.agePlaceholder')"
+          :error="ageError"
         />
         <div class="index_page-form_section-form-actions">
           <EBtn v-if="isEditing" color="warn" :text="t('form.cancel')" @click="resetForm" />
@@ -102,6 +104,8 @@ const userStore = useUserStore()
 
 const newUserName = ref('')
 const newUserAge = ref('')
+const nameError = ref('')
+const ageError = ref('')
 
 const isEditing = ref(false)
 const editingUserId = ref<number | null>(null)
@@ -119,23 +123,32 @@ if (usersData.value) {
   userStore.setUsers(usersData.value)
 }
 
+function clearErrors() {
+  nameError.value = ''
+  ageError.value = ''
+}
+
 function validateForm(): boolean {
+  clearErrors()
+  let isValid = true
+
   if (newUserName.value.trim() === '') {
-    alert(t('validation.nameRequired'))
-    return false
+    nameError.value = t('validation.nameRequired')
+    isValid = false
   }
 
   if (newUserAge.value.trim() === '' || parseInt(newUserAge.value) <= 0) {
-    alert(t('validation.ageInvalid'))
-    return false
+    ageError.value = t('validation.ageInvalid')
+    isValid = false
   }
 
-  return true
+  return isValid
 }
 
 function resetForm() {
   newUserName.value = ''
   newUserAge.value = ''
+  clearErrors()
   isEditing.value = false
   editingUserId.value = null
 }
@@ -169,7 +182,6 @@ async function handleSubmit() {
       closeDialog()
     } catch (error: any) {
       userStore.setError(error.message || 'Operation failed')
-      alert(t('error.operationFailed'))
     } finally {
       userStore.setLoading(false)
     }
