@@ -20,7 +20,6 @@ const hasText = computed(() => typeof props.text === 'string' && props.text !== 
 
 <style scoped lang="scss">
 .e_btn {
-  
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -28,18 +27,14 @@ const hasText = computed(() => typeof props.text === 'string' && props.text !== 
   border: none;
   border-radius: 8px;
 
-  
   font-size: 14px;
   font-weight: 500;
   color: #fff;
 
-  
   background-color: #4caf50;
 
-  /* Animation */
   transition: all 0.3s ease;
 
-  /* Misc */
   cursor: pointer;
   outline: none;
 

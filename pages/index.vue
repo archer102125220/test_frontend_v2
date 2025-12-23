@@ -75,7 +75,12 @@
       </table>
     </section>
 
-    <dialog ref="dialogRef" class="index_page-dialog">
+    <dialog
+      ref="dialogRef"
+      class="index_page-dialog"
+      @cancel="handleDialogCancel"
+      @click="handleDialogClick"
+    >
       <div class="index_page-dialog-content">
         <h3 class="index_page-dialog-title">{{ dialogData.title }}</h3>
         <p class="index_page-dialog-message">{{ dialogData.message }}</p>
@@ -209,11 +214,38 @@ function showDialog(title: string, message: string, onConfirm: () => void) {
   dialogData.title = title
   dialogData.message = message
   dialogData.onConfirm = onConfirm
+
+  dialogRef.value?.removeAttribute('css-is-closing')
   dialogRef.value?.showModal()
 }
 
 function closeDialog() {
-  dialogRef.value?.close()
+  const dialog = dialogRef.value
+  if (dialog instanceof HTMLDialogElement === false) return
+
+  dialog.setAttribute('css-is-closing', 'true')
+
+  dialog.addEventListener(
+    'animationend',
+    function () {
+      dialog.close()
+    },
+    { once: true }
+  )
+}
+
+function handleDialogCancel(event: Event) {
+  event.preventDefault()
+  closeDialog()
+}
+
+function handleDialogClick(event: MouseEvent) {
+  const dialog = dialogRef.value
+  if (dialog instanceof HTMLDialogElement === false) return
+
+  if (event.target === dialog) {
+    closeDialog()
+  }
 }
 </script>
 
@@ -413,16 +445,46 @@ function closeDialog() {
   }
 
   &-dialog {
+    max-width: 500px;
+    width: 90%;
     padding: 0;
     border: none;
     border-radius: 12px;
-    max-width: 500px;
-    width: 90%;
 
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transition:
+      opacity 0.25s ease-out,
+      transform 0.25s ease-out,
+      overlay 0.25s ease-out allow-discrete,
+      display 0.25s ease-out allow-discrete;
+
+    @starting-style {
+      opacity: 0;
+      transform: scale(0.9) translateY(-20px);
+    }
+
+    &[css-is-closing='true'] {
+      animation: dialogFadeOut 0.2s ease-in forwards;
+    }
+
     &::backdrop {
       background-color: rgba(0, 0, 0, 0.5);
+
+      transition:
+        background-color 0.25s ease-out,
+        overlay 0.25s ease-out allow-discrete,
+        display 0.25s ease-out allow-discrete;
+
+      @starting-style {
+        background-color: #00000000;
+      }
+    }
+
+    &[css-is-closing='true']::backdrop {
+      animation: backdropFadeOut 0.2s ease-in forwards;
     }
 
     &-content {
@@ -434,10 +496,11 @@ function closeDialog() {
     }
 
     &-title {
+      margin: 0 0 16px 0;
+
       font-size: 24px;
       font-weight: 600;
       color: #333;
-      margin: 0 0 16px 0;
 
       @include mobile {
         font-size: 20px;
@@ -445,10 +508,11 @@ function closeDialog() {
     }
 
     &-message {
-      font-size: 16px;
-      color: #666;
       margin: 0 0 24px 0;
+
+      font-size: 16px;
       line-height: 1.5;
+      color: #666;
 
       @include mobile {
         font-size: 14px;
@@ -464,6 +528,26 @@ function closeDialog() {
         flex-direction: column-reverse;
       }
     }
+  }
+}
+
+@keyframes dialogFadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+}
+
+@keyframes backdropFadeOut {
+  from {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0);
   }
 }
 </style>

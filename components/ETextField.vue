@@ -53,40 +53,32 @@ function handleInput(event: Event) {
 
 <style scoped lang="scss">
 .e_text_field {
-  
   display: flex;
   flex-direction: column;
   gap: 8px;
   width: 100%;
 
   &-label {
-    
     font-size: 14px;
     font-weight: 500;
     color: #333;
 
-    /* Misc */
     cursor: pointer;
   }
 
   &-input {
-    
     width: 100%;
     padding: 12px 16px;
     border: 1px solid #ddd;
     border-radius: 8px;
 
-    
     font-size: 14px;
     color: #333;
 
-    
     background-color: #fff;
 
-    /* Animation */
     transition: all 0.3s ease;
 
-    /* Misc */
     outline: none;
 
     &:focus {
